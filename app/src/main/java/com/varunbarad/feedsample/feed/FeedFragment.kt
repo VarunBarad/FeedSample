@@ -58,7 +58,11 @@ class FeedFragment : Fragment(), FeedView {
     dataBinding
         .recyclerViewPosts
         .adapter = postsAdapter
-    presenter.loadPostsFromNetwork(currentPage)
+    if (postsAdapter.posts.size > 1) {
+      showPosts(mutableListOf(), postsAdapter.currentPage, postsAdapter.totalPages)
+    } else {
+      presenter.loadPostsFromNetwork(currentPage)
+    }
 
     return this.dataBinding.root
   }

@@ -11,12 +11,12 @@ import android.support.v4.app.FragmentPagerAdapter
  */
 class FeedCategoryAdapter(fragmentManager: FragmentManager?) : FragmentPagerAdapter(fragmentManager) {
   override fun getItem(position: Int): Fragment = when (position) {
-    0 -> FeedFragment.newInstance("All")
-    1 -> FeedFragment.newInstance("Photo")
-    2 -> FeedFragment.newInstance("Link")
-    3 -> FeedFragment.newInstance("Video")
-    4 -> FeedFragment.newInstance("Introduce")
-    else -> FeedFragment.newInstance("Error")
+    0 -> FeedFragment.newInstance("ALL")
+    1 -> FeedFragment.newInstance("PHOTO")
+    2 -> FeedFragment.newInstance("LINK")
+    3 -> FeedFragment.newInstance("VIDEO")
+    4 -> FeedFragment.newInstance("INTRODUCE")
+    else -> FeedFragment.newInstance("ERROR")
   }
 
   override fun getCount(): Int = 5

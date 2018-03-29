@@ -1,6 +1,7 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
 
 android {
     compileSdkVersion 27
@@ -14,6 +15,11 @@ android {
         vectorDrawables.useSupportLibrary = true
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
+
+    buildTypes.each {
+        it.buildConfigField("String", "FeedServiceAccessToken", api_access_token)
+    }
+
     buildTypes {
         release {
             minifyEnabled false
@@ -29,6 +35,8 @@ kapt {
 ext {
     supportLibraryVersion = '27.1.0'
     constraintLayoutVersion = '1.0.2'
+    retrofitVersion = '2.3.0'
+    gsonVersion = '2.8.2'
 
     jUnitVersion = '4.12'
     androidTestRunnerVersion = '1.0.1'
@@ -52,6 +60,13 @@ dependencies {
 
     // Constraint Layout
     implementation "com.android.support.constraint:constraint-layout:${constraintLayoutVersion}"
+
+    // Library used for JSON serialization/deserialization
+    implementation "com.google.code.gson:gson:${gsonVersion}"
+
+    // Retrofit to fetch and parse API responses
+    implementation "com.squareup.retrofit2:retrofit:${retrofitVersion}"
+    implementation "com.squareup.retrofit2:converter-gson:${retrofitVersion}"
 
     // JUnit Test Runner
     testImplementation "junit:junit:${jUnitVersion}"

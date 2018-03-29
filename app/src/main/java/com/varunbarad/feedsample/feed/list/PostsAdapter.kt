@@ -4,6 +4,7 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.varunbarad.feedsample.databinding.*
+import com.varunbarad.feedsample.feed.FeedPresenter
 import com.varunbarad.feedsample.feed.list.viewholders.*
 import com.varunbarad.feedsample.model.*
 
@@ -13,6 +14,11 @@ import com.varunbarad.feedsample.model.*
  * Project: FeedSample
  */
 class PostsAdapter(val posts: MutableList<Post> = mutableListOf(), var totalPages: Int, var currentPage: Int = 0) : RecyclerView.Adapter<BaseViewHolder>() {
+  private lateinit var presenter: FeedPresenter
+  fun setPresenter(presenter: FeedPresenter) {
+    this.presenter = presenter
+  }
+
   fun addPosts(posts: MutableList<Post>, totalPages: Int, currentPage: Int) {
     this.totalPages = totalPages
     this.currentPage = currentPage
@@ -23,7 +29,7 @@ class PostsAdapter(val posts: MutableList<Post> = mutableListOf(), var totalPage
 
   override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder {
     return when (viewType) {
-      LAYOUT_FOOTER -> FooterViewHolder(PostFooterBinding.inflate(LayoutInflater.from(parent.context), parent, false))
+      LAYOUT_FOOTER -> FooterViewHolder(PostFooterBinding.inflate(LayoutInflater.from(parent.context), parent, false), presenter)
       LAYOUT_NORMAL -> NormalViewHolder(PostNormalBinding.inflate(LayoutInflater.from(parent.context), parent, false))
       LAYOUT_PHOTO -> PhotoViewHolder(PostPhotoBinding.inflate(LayoutInflater.from(parent.context), parent, false))
       LAYOUT_LINK -> LinkViewHolder(PostLinkBinding.inflate(LayoutInflater.from(parent.context), parent, false))
@@ -38,7 +44,7 @@ class PostsAdapter(val posts: MutableList<Post> = mutableListOf(), var totalPage
 
   override fun onBindViewHolder(holder: BaseViewHolder, position: Int) {
     if (position == (itemCount - 1)) {
-      (holder as FooterViewHolder).bind((totalPages - currentPage) > 1)
+      (holder as FooterViewHolder).bind(totalPages, currentPage)
     } else {
       when (posts[position].feedType) {
         "PHOTO" -> (holder as PhotoViewHolder).bind(posts[position] as PhotoPost)

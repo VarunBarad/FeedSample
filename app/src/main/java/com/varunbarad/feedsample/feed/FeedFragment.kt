@@ -38,6 +38,7 @@ class FeedFragment : Fragment(), FeedView {
       category = arguments!!.getString(ARG_CATEGORY)
     }
     this.presenter = Presenter(this, category)
+    this.postsAdapter.setPresenter(this.presenter)
   }
 
   override fun onAttach(context: Context?) {

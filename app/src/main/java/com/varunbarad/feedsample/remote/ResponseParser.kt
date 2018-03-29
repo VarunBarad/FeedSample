@@ -9,7 +9,7 @@ import org.json.JSONArray
  * Date: 29-03-2018
  * Project: FeedSample
  */
-fun parsePosts(responsePosts: JSONArray): List<Post> {
+fun parsePosts(responsePosts: JSONArray): MutableList<Post> {
   val gson = GsonBuilder().create()
 
   val posts = mutableListOf<Post>()
@@ -17,7 +17,7 @@ fun parsePosts(responsePosts: JSONArray): List<Post> {
     val element = responsePosts.getJSONObject(i)
     when (element.getString("feedType")) {
       "PHOTO" -> posts.add(gson.fromJson(element.toString(), PhotoPost::class.java))
-      "LINK" -> posts.add(gson.fromJson(element.toString(), LinkPost::class.java))
+      "LINKS" -> posts.add(gson.fromJson(element.toString(), LinkPost::class.java))
       "VIDEO" -> posts.add(gson.fromJson(element.toString(), VideoPost::class.java))
       "INTRO" -> posts.add(gson.fromJson(element.toString(), IntroPost::class.java))
       "DISCUSSION" -> posts.add(gson.fromJson(element.toString(), DiscussionPost::class.java))

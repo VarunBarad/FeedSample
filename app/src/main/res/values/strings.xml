@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">FeedSample</string>
+
+    <string name="message_error_network">There seems to be an error, try again later.</string>
 </resources>

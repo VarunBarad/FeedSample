@@ -3,20 +3,14 @@ package com.varunbarad.feedsample.feed
 import android.content.Context
 import android.os.Bundle
 import android.support.v4.app.Fragment
-import android.util.Log
+import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.varunbarad.feedsample.databinding.FragmentFeedBinding
+import com.varunbarad.feedsample.feed.list.PostsAdapter
 import com.varunbarad.feedsample.listener.FragmentInteractionListener
 import com.varunbarad.feedsample.model.Post
-import com.varunbarad.feedsample.remote.FeedServiceHelper
-import com.varunbarad.feedsample.remote.parsePosts
-import okhttp3.ResponseBody
-import org.json.JSONObject
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
 /**
  * A simple [Fragment] subclass.
@@ -26,12 +20,14 @@ import retrofit2.Response
  * Use the [FeedFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class FeedFragment : Fragment() {
+class FeedFragment : Fragment(), FeedView {
   private lateinit var category: String
+
+  override lateinit var presenter: FeedPresenter
+  private var postsAdapter: PostsAdapter = PostsAdapter(mutableListOf())
 
   private var totalPages = 0
   private var currentPage = 0
-  private val posts = mutableListOf<Post>()
 
   private lateinit var dataBinding: FragmentFeedBinding
   private var fragmentInteractionListener: FragmentInteractionListener? = null
@@ -41,6 +37,7 @@ class FeedFragment : Fragment() {
     if (arguments != null) {
       category = arguments!!.getString(ARG_CATEGORY)
     }
+    this.presenter = Presenter(this, category)
   }
 
   override fun onAttach(context: Context?) {
@@ -54,9 +51,13 @@ class FeedFragment : Fragment() {
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
     this.dataBinding = FragmentFeedBinding.inflate(inflater, container, false)
-    this.dataBinding.textView.text = category
 
-    this.fetchPostsFromNetwork()
+    dataBinding
+        .recyclerViewPosts.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+    dataBinding
+        .recyclerViewPosts
+        .adapter = postsAdapter
+    presenter.loadPostsFromNetwork(currentPage)
 
     return this.dataBinding.root
   }
@@ -66,37 +67,46 @@ class FeedFragment : Fragment() {
     fragmentInteractionListener = null
   }
 
-  private fun fetchPostsFromNetwork() {
-    val service = FeedServiceHelper
-        .create()
+  override fun showPosts(posts: MutableList<Post>, currentPage: Int, totalPages: Int) {
+    postsAdapter
+        .addPosts(posts)
 
-    val retrofitCallback = object : Callback<ResponseBody> {
-      override fun onResponse(call: Call<ResponseBody>?, response: Response<ResponseBody>?) {
-        if (response != null) {
-          val postsResponse = JSONObject(response.body()?.string()).getJSONObject("data")
+    dataBinding
+        .errorContainer
+        .visibility = View.GONE
+    dataBinding
+        .progressContainer
+        .visibility = View.GONE
+    dataBinding
+        .outputContainer
+        .visibility = View.VISIBLE
 
-          totalPages = postsResponse.getInt("totalPages")
-          currentPage = postsResponse.getInt("current_page")
-          posts.addAll(parsePosts(postsResponse.getJSONArray("feeds")))
-          dataBinding.textView.text = posts.size.toString()
-        } else {
-          Log.e("SERVICE", "Response was null")
-        }
-      }
+    this.totalPages = totalPages
+    this.currentPage = currentPage
+  }
 
-      override fun onFailure(call: Call<ResponseBody>?, t: Throwable?) {
-        Log.e("NETWORK", t?.message)
-      }
+  override fun showError() {
+    dataBinding
+        .outputContainer
+        .visibility = View.GONE
+    dataBinding
+        .progressContainer
+        .visibility = View.GONE
+    dataBinding
+        .errorContainer
+        .visibility = View.VISIBLE
+  }
 
-    }
-
-    when (category) {
-      "ALL" -> service.getAllPosts(currentPage).enqueue(retrofitCallback)
-      "PHOTO" -> service.getPhotoPosts(currentPage).enqueue(retrofitCallback)
-      "LINK" -> service.getLinkPosts(currentPage).enqueue(retrofitCallback)
-      "VIDEO" -> service.getVideoPosts(currentPage).enqueue(retrofitCallback)
-      "INTRODUCE" -> service.getIntroPosts(currentPage).enqueue(retrofitCallback)
-    }
+  override fun showProgress() {
+    dataBinding
+        .outputContainer
+        .visibility = View.GONE
+    dataBinding
+        .errorContainer
+        .visibility = View.GONE
+    dataBinding
+        .progressContainer
+        .visibility = View.VISIBLE
   }
 
   companion object {

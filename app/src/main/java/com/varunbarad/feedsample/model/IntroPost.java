@@ -11,8 +11,8 @@ public class IntroPost extends Post {
   @SerializedName("intro_type")
   private String introType;
   
-  public IntroPost(String eventId, String organiserId, String feedType, String info, int userId, User user, int commentCount, int likes, String introType) {
-    super(eventId, organiserId, feedType, info, userId, user, commentCount, likes);
+  public IntroPost(String eventId, String organiserId, String feedType, String info, int userId, User user, int commentCount, int likes, String introType, String _id) {
+    super(_id, eventId, organiserId, feedType, info, userId, user, commentCount, likes);
     this.introType = introType;
   }
   

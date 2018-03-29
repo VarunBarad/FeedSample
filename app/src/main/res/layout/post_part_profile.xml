@@ -1,14 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="post"
+            type="com.varunbarad.feedsample.model.Post"/>
+    </data>
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <TextView
+        <android.support.v7.widget.AppCompatImageView
+            android:id="@+id/profilePicture"
+            android:layout_width="75dp"
+            android:layout_height="75dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:profileImageUrl="@{post.user.profilePictures.thumbnail}"
+            app:srcCompat="@drawable/ic_profile"/>
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Profile"/>
+            android:layout_marginStart="@dimen/space_primary"
+            android:text="@{@string/template_name_full(post.user.firstName, post.user.lastName)}"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintLeft_toRightOf="@+id/profilePicture"
+            app:layout_constraintRight_toLeftOf="@+id/options"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/designation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_secondary"
+            android:text="@{post.user.designation}"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintLeft_toLeftOf="@+id/name"
+            app:layout_constraintRight_toLeftOf="@+id/options"
+            app:layout_constraintTop_toBottomOf="@+id/name"/>
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/timePosted"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintLeft_toLeftOf="@+id/name"
+            tools:text="12 mins"/>
+
+        <android.support.v7.widget.AppCompatImageButton
+            android:id="@+id/options"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="?android:selectableItemBackground"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_more_vertical"/>
     </android.support.constraint.ConstraintLayout>
 </layout>

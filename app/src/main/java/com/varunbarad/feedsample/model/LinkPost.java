@@ -11,8 +11,8 @@ public class LinkPost extends Post {
   private String description;
   private String imageUrl;
   
-  public LinkPost(String eventId, String organiserId, String feedType, String info, int userId, User user, int commentCount, int likes, String url, String title, String description, String imageUrl) {
-    super(eventId, organiserId, feedType, info, userId, user, commentCount, likes);
+  public LinkPost(String eventId, String organiserId, String feedType, String info, int userId, User user, int commentCount, int likes, String url, String title, String description, String imageUrl, String _id) {
+    super(_id, eventId, organiserId, feedType, info, userId, user, commentCount, likes);
     this.url = url;
     this.title = title;
     this.description = description;

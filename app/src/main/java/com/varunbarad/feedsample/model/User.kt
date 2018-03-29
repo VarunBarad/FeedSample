@@ -17,6 +17,6 @@ data class User(
 )
 
 data class ProfilePictures(
-    val thumbnail: String = "",
-    /*orignal*/val original: String = ""
+    @SerializedName("thumb") val thumbnail: String = "",
+    @SerializedName("orignal") val original: String = ""
 )

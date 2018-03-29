@@ -1,30 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <android.support.v7.widget.LinearLayoutCompat
+    <data>
+
+        <variable
+            name="post"
+            type="com.varunbarad.feedsample.model.VideoPost"/>
+    </data>
+
+    <android.support.v7.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_marginBottom="@dimen/space_secondary"
+        android:layout_marginEnd="@dimen/space_secondary"
+        android:layout_marginStart="@dimen/space_secondary"
+        android:layout_marginTop="@dimen/space_secondary"
+        android:elevation="@dimen/elevation_cardView">
 
-        <include
-            layout="@layout/post_part_profile"
+        <android.support.v7.widget.LinearLayoutCompat
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingBottom="@dimen/space_primary"
+            android:paddingEnd="@dimen/space_primary"
+            android:paddingStart="@dimen/space_primary"
+            android:paddingTop="@dimen/space_primary">
 
-        <android.support.constraint.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <TextView
-                android:layout_width="wrap_content"
+            <include
+                layout="@layout/post_part_profile"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Video"/>
-        </android.support.constraint.ConstraintLayout>
+                app:post="@{post}"/>
 
-        <include
-            layout="@layout/post_part_statistics"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-    </android.support.v7.widget.LinearLayoutCompat>
+            <android.support.constraint.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/space_primary"
+                android:layout_marginTop="@dimen/space_primary">
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <WebView
+                        android:id="@+id/video_webView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintDimensionRatio="w,16:9"/>
+                </FrameLayout>
+            </android.support.constraint.ConstraintLayout>
+
+            <include
+                layout="@layout/post_part_statistics"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:post="@{post}"/>
+        </android.support.v7.widget.LinearLayoutCompat>
+    </android.support.v7.widget.CardView>
 </layout>

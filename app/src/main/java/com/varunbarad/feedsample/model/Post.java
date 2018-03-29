@@ -8,6 +8,7 @@ import com.google.gson.annotations.SerializedName;
  * Project: FeedSample
  */
 public class Post {
+  private String _id;
   @SerializedName("event_id")
   private String eventId;
   @SerializedName("organiser_id")
@@ -21,7 +22,8 @@ public class Post {
   private int commentCount;
   private int likes;
   
-  public Post(String eventId, String organiserId, String feedType, String info, int userId, User user, int commentCount, int likes) {
+  public Post(String _id, String eventId, String organiserId, String feedType, String info, int userId, User user, int commentCount, int likes) {
+    _id = _id;
     this.eventId = eventId;
     this.organiserId = organiserId;
     this.feedType = feedType;
@@ -99,5 +101,13 @@ public class Post {
   @Override
   public String toString() {
     return "Default post";
+  }
+  
+  public String get_id() {
+    return _id;
+  }
+  
+  public void set_id(String _id) {
+    this._id = _id;
   }
 }

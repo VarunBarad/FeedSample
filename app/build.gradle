@@ -37,6 +37,8 @@ ext {
     constraintLayoutVersion = '1.0.2'
     retrofitVersion = '2.3.0'
     gsonVersion = '2.8.2'
+    picassoVersion = '2.5.2'
+    picassoTransformationsVersion = '2.2.1'
 
     jUnitVersion = '4.12'
     androidTestRunnerVersion = '1.0.1'
@@ -67,6 +69,12 @@ dependencies {
     // Retrofit to fetch and parse API responses
     implementation "com.squareup.retrofit2:retrofit:${retrofitVersion}"
     implementation "com.squareup.retrofit2:converter-gson:${retrofitVersion}"
+
+    // Used to load images from network
+    implementation "com.squareup.picasso:picasso:${picassoVersion}"
+
+    // Image transformations library for Picasso
+    implementation "jp.wasabeef:picasso-transformations:${picassoTransformationsVersion}"
 
     // JUnit Test Runner
     testImplementation "junit:junit:${jUnitVersion}"

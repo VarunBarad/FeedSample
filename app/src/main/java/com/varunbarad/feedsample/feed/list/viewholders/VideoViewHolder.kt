@@ -10,6 +10,16 @@ import com.varunbarad.feedsample.model.VideoPost
  */
 class VideoViewHolder(private val itemViewBinding: PostVideoBinding) : BaseViewHolder(itemViewBinding.root) {
   fun bind(post: VideoPost) {
+    itemViewBinding.post = post
+    itemViewBinding.executePendingBindings()
 
+    val embedCode = "<iframe width=\"100%\" src=\"https://www.youtube.com/embed/${post.videoId}\" frameborder=\"0\" allow=\"autoplay; encrypted-media\" allowfullscreen></iframe>"
+    itemViewBinding
+        .videoWebView
+        .settings
+        .javaScriptEnabled = true
+    itemViewBinding
+        .videoWebView
+        .loadDataWithBaseURL("", embedCode, "text/html", "UTF-8", "")
   }
 }

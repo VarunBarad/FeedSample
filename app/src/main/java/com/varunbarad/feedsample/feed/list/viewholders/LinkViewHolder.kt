@@ -10,6 +10,7 @@ import com.varunbarad.feedsample.model.LinkPost
  */
 class LinkViewHolder(private val itemViewBinding: PostLinkBinding) : BaseViewHolder(itemViewBinding.root) {
   fun bind(post: LinkPost) {
-
+    itemViewBinding.post = post
+    itemViewBinding.executePendingBindings()
   }
 }

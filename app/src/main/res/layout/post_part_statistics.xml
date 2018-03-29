@@ -1,14 +1,72 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    >
 
-    <android.support.constraint.ConstraintLayout
+    <data>
+
+        <variable
+            name="post"
+            type="com.varunbarad.feedsample.model.Post"/>
+    </data>
+
+    <android.support.v7.widget.LinearLayoutCompat
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
 
-        <TextView
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/likes"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Statistics"/>
-    </android.support.constraint.ConstraintLayout>
+            android:layout_gravity="center_vertical"
+            android:layout_marginEnd="@dimen/space_primary"
+            android:gravity="center"
+            android:text="@{@string/template_likes(post.likes)}"/>
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/comments"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="@dimen/space_primary"
+            android:gravity="center"
+            android:text="@{@string/template_comments(post.commentCount)}"/>
+
+        <android.widget.Space
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"/>
+
+        <android.support.v7.widget.AppCompatImageButton
+            android:id="@+id/button_like"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/space_primary"
+            android:layout_marginStart="@dimen/space_primary"
+            android:background="?android:selectableItemBackground"
+            android:minHeight="25dp"
+            app:srcCompat="@drawable/ic_like"/>
+
+        <android.support.v7.widget.AppCompatImageButton
+            android:id="@+id/button_comment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/space_primary"
+            android:layout_marginStart="@dimen/space_primary"
+            android:background="?android:selectableItemBackground"
+            android:minHeight="25dp"
+            app:srcCompat="@drawable/ic_comment"/>
+
+        <android.support.v7.widget.AppCompatImageButton
+            android:id="@+id/button_share"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/space_primary"
+            android:layout_marginStart="@dimen/space_primary"
+            android:background="?android:selectableItemBackground"
+            android:minHeight="25dp"
+            app:srcCompat="@drawable/ic_share"/>
+    </android.support.v7.widget.LinearLayoutCompat>
 </layout>

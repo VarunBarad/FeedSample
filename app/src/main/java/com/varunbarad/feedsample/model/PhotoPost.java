@@ -8,8 +8,8 @@ package com.varunbarad.feedsample.model;
 public class PhotoPost extends Post {
   private ImageStub image;
   
-  public PhotoPost(String eventId, String organiserId, String feedType, String info, int userId, User user, int commentCount, int likes, ImageStub image) {
-    super(eventId, organiserId, feedType, info, userId, user, commentCount, likes);
+  public PhotoPost(String eventId, String organiserId, String feedType, String info, int userId, User user, int commentCount, int likes, ImageStub image, String _id) {
+    super(_id, eventId, organiserId, feedType, info, userId, user, commentCount, likes);
     this.image = image;
   }
   

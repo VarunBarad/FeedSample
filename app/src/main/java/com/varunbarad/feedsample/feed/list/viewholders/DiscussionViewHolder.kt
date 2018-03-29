@@ -10,6 +10,7 @@ import com.varunbarad.feedsample.model.DiscussionPost
  */
 class DiscussionViewHolder(private val itemViewBinding: PostDiscussionBinding) : BaseViewHolder(itemViewBinding.root) {
   fun bind(post: DiscussionPost) {
-
+    itemViewBinding.post = post
+    itemViewBinding.executePendingBindings()
   }
 }

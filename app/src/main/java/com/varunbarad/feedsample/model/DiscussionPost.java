@@ -6,8 +6,8 @@ package com.varunbarad.feedsample.model;
  * Project: FeedSample
  */
 public class DiscussionPost extends Post {
-  public DiscussionPost(String eventId, String organiserId, String feedType, String info, int userId, User user, int commentCount, int likes) {
-    super(eventId, organiserId, feedType, info, userId, user, commentCount, likes);
+  public DiscussionPost(String eventId, String organiserId, String feedType, String info, int userId, User user, int commentCount, int likes, String _id) {
+    super(_id, eventId, organiserId, feedType, info, userId, user, commentCount, likes);
   }
   
   @Override

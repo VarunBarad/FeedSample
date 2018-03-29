@@ -10,6 +10,7 @@ import com.varunbarad.feedsample.model.PhotoPost
  */
 class PhotoViewHolder(private val itemViewBinding: PostPhotoBinding) : BaseViewHolder(itemViewBinding.root) {
   fun bind(post: PhotoPost) {
-
+    itemViewBinding.post = post
+    itemViewBinding.executePendingBindings()
   }
 }

@@ -1,14 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/space_secondary"
+        android:layout_marginEnd="@dimen/space_secondary"
+        android:layout_marginStart="@dimen/space_secondary"
+        android:layout_marginTop="@dimen/space_secondary"
+        android:paddingBottom="@dimen/space_primary"
+        android:paddingEnd="@dimen/space_primary"
+        android:paddingStart="@dimen/space_primary"
+        android:paddingTop="@dimen/space_primary">
 
-        <TextView
-            android:layout_width="wrap_content"
+        <android.support.v4.widget.ContentLoadingProgressBar
+            android:id="@+id/progress"
+            style="?android:attr/progressBarStyleLarge"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Footer"/>
+            android:foregroundGravity="center"
+            android:indeterminate="true"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
     </android.support.constraint.ConstraintLayout>
 </layout>

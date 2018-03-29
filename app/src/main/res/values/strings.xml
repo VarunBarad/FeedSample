@@ -4,6 +4,7 @@
     <string name="message_error_network">There seems to be an error, try again later.</string>
     <string name="message_noBrowser">No compatible app detected to open the page.</string>
     <string name="message_ignoredLayout">Ignored layout type</string>
+    <string name="message_posts_end">There are no more posts to load.</string>
 
     <string name="template_name_full">%1$s %2$s</string>
     <string name="template_likes">Likes: %1$d</string>

@@ -24,7 +24,7 @@ class FeedFragment : Fragment(), FeedView {
   private lateinit var category: String
 
   override lateinit var presenter: FeedPresenter
-  private var postsAdapter: PostsAdapter = PostsAdapter(mutableListOf())
+  private var postsAdapter: PostsAdapter = PostsAdapter(mutableListOf(), 0, 0)
 
   private var totalPages = 0
   private var currentPage = 0
@@ -69,7 +69,7 @@ class FeedFragment : Fragment(), FeedView {
 
   override fun showPosts(posts: MutableList<Post>, currentPage: Int, totalPages: Int) {
     postsAdapter
-        .addPosts(posts)
+        .addPosts(posts, totalPages, currentPage)
 
     dataBinding
         .errorContainer

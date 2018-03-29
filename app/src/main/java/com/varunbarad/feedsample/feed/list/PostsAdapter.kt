@@ -12,8 +12,10 @@ import com.varunbarad.feedsample.model.*
  * Date: 29-03-2018
  * Project: FeedSample
  */
-class PostsAdapter(val posts: MutableList<Post> = mutableListOf()) : RecyclerView.Adapter<BaseViewHolder>() {
-  fun addPosts(posts: MutableList<Post>) {
+class PostsAdapter(val posts: MutableList<Post> = mutableListOf(), var totalPages: Int, var currentPage: Int = 0) : RecyclerView.Adapter<BaseViewHolder>() {
+  fun addPosts(posts: MutableList<Post>, totalPages: Int, currentPage: Int) {
+    this.totalPages = totalPages
+    this.currentPage = currentPage
     val insertionPosition = itemCount - 1
     this.posts.addAll(posts)
     this.notifyItemRangeInserted(insertionPosition, posts.size)
@@ -36,7 +38,7 @@ class PostsAdapter(val posts: MutableList<Post> = mutableListOf()) : RecyclerVie
 
   override fun onBindViewHolder(holder: BaseViewHolder, position: Int) {
     if (position == (itemCount - 1)) {
-      (holder as FooterViewHolder).bind()
+      (holder as FooterViewHolder).bind((totalPages - currentPage) > 1)
     } else {
       when (posts[position].feedType) {
         "PHOTO" -> (holder as PhotoViewHolder).bind(posts[position] as PhotoPost)

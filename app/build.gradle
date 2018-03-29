@@ -4,6 +4,17 @@ apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 
 android {
+    signingConfigs {
+        releaseConfig {
+            // I could extract these passwords to gradle.properties file so that they don't get
+            // exposed via Version-Control, but I left them here so that you don't have to go
+            // through the extra setup-step
+            keyAlias 'FeedSampleKey'
+            keyPassword 'password'
+            storeFile file('../release-documents/FeedSample-KeyStore.jks')
+            storePassword 'password'
+        }
+    }
     compileSdkVersion 27
     dataBinding.enabled = true
     defaultConfig {
